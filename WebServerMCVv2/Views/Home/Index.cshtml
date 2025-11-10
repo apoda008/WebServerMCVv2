@@ -1,0 +1,44 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Home Page";
+}
+<a asp-action="UsersOnly" asp-controller="Home">User's only page</a>
+<a asp-action="AdminOnly" asp-controller="Home">Admin Only</a>
+<h1>Cookie Auth in ASP.NET Core MVC</h1>
+<p>
+    Currently, the user is @(User.Identity?.Name ?? "Anonymous")
+</p>
+
+@if (User.Identity?.IsAuthenticated ?? false)
+{
+    <p>They are authenticated</p>
+    <form asp-controller="Auth" asp-action="Logout" method="post">
+
+        <button type="submit">Logout</button>
+    </form>
+
+}
+else
+{
+    <p>THey are not authenticated</p>
+
+}
+
+<h2>Claims</h2>
+@if (User.Claims.Any())
+{
+    <ul>
+        @foreach (var claim in User.Claims)
+        {
+            
+            <li>@claim.ToString()</li>
+        }
+    </ul>
+
+} else
+{
+    <p>THere are no claims</p>    
+
+}
