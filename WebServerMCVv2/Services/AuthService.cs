@@ -12,9 +12,12 @@ namespace WebServerMVCv2.Services
 {
     public class AuthService(UserDbContext context, IConfiguration configuration) : IAuthService
     {
-        public async Task<User> LoginAsync(UserDto request)
+        public async Task<User?> LoginAsync(UserDto request)
         {
+            Console.WriteLine("Here");
+
             var user = await context.Users.FirstOrDefaultAsync(u => u.Username == request.Username);
+            
 
             if(user == null)
             {
@@ -28,10 +31,17 @@ namespace WebServerMVCv2.Services
                 //password failed
                 return null;
             }
-
+            User reformat = new User() { 
+                Username = request.Username,
+                Claims = new List<Claim> 
+                { 
+                    new Claim(ClaimTypes.Name, request.Username),
+                    new Claim("admin", "true")
+                }
+            };
             //string token = CreateToken(user);
-
-            return user;
+            Console.WriteLine("Nade ut here");
+            return reformat;
         }
 
         public async Task<User?> RegisterAsync(UserDto request) 
@@ -52,7 +62,8 @@ namespace WebServerMVCv2.Services
             user.Claims = new List<Claim>
                 { 
                     //claim == key value pair
-                    new Claim(ClaimTypes.Name, "jdoe"),
+                    new Claim(ClaimTypes.Name, request.Username),
+                    new Claim("admin", "true")
 
                 };
             context.Users.Add(user);

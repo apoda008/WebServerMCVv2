@@ -1,6 +1,7 @@
 ﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
+using WebServerMVCv2.Entities;
 using WebServerMVCv2.Models;
 using WebServerMVCv2.Services;
 
@@ -17,21 +18,26 @@ namespace WebServerMCVv2.Controllers
         { 
             //currently works 
             //var account = UserManager.Login(model.Username, model.Password);
-
-            var account = authService.LoginAsync(model);
+            Console.WriteLine(model.Username);
+            User? account = await authService.LoginAsync(model);
+            Console.WriteLine(account);
+            
 
             if (account != null)
             {
-                var identity = new ClaimsIdentity(account.Username, Settings.AuthCookieName);
+
+                
+                var identity = new ClaimsIdentity(account.Claims, Settings.AuthCookieName);
                 var principle = new ClaimsPrincipal(identity);
 
-                var props = new AuthenticationProperties 
+                var props = new AuthenticationProperties
                 {
                     IsPersistent = true,
                     ExpiresUtc = DateTimeOffset.UtcNow.AddHours(8),
                 };
 
                 await HttpContext.SignInAsync(Settings.AuthCookieName, principle, props);
+
             }
             else 
             {

@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization.Infrastructure;
 
 namespace WebServerMVCv2.Entities
@@ -10,7 +11,7 @@ namespace WebServerMVCv2.Entities
         public string PasswordHash { get; set; } = string.Empty;
 
         public string Role { get; set; } = string.Empty;
-
-        public List<Claim> Claims; //= { new Claim (ClaimTypes.Role, Role) } 
+        [NotMapped]
+        public List<Claim> Claims { get; set;  } //= { new Claim (ClaimTypes.Role, Role) } 
     }
 }
