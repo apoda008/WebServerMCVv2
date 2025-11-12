@@ -1,5 +1,6 @@
 ﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebServerMVCv2.Entities;
 using WebServerMVCv2.Models;
@@ -37,7 +38,7 @@ namespace WebServerMCVv2.Controllers
                 };
 
                 await HttpContext.SignInAsync(Settings.AuthCookieName, principle, props);
-
+                Console.WriteLine("Success");
             }
             else 
             {
@@ -52,7 +53,9 @@ namespace WebServerMCVv2.Controllers
             return View();
         }
 
-
+        //set to authorize to prevent future user sign up until I can get a more robust way to filter 
+        //a way to check a user and grant the profile user privledges
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Register(UserDto request) 
         {
@@ -74,7 +77,7 @@ namespace WebServerMCVv2.Controllers
         public async Task<IActionResult> Logout() 
         { 
             await HttpContext.SignOutAsync(Settings.AuthCookieName);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Auth");
         }
 
     }

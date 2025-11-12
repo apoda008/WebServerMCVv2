@@ -13,27 +13,6 @@
 </head>
 <body class="bg-secondary">
     <header>
-        @*
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-light border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">WebServerMCV</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-        *@
         <nav class="navbar navbar-expand-sm navbar-light bg-light border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <!-- Brand (left) -->
@@ -48,22 +27,22 @@
                     <!-- Left links -->
                     <ul class="navbar-nav me-3">
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="" asp-action="">About</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="About">About</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="" asp-action="">Contact</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
                         </li>
                     </ul>
 
                     <!-- Center search bar -->
                     <form class="d-flex mx-auto w-50" method="get" asp-area="" asp-controller="" asp-action="">
-                        <input class="form-control rounded-pill me-2" type="search" name="q" placeholder="Search…" aria-label="Search">
+                        <input class="form-control rounded-pill me-2" type="search" name="q" placeholder="Search… (NON FUNCTIONAL)" aria-label="Search">
                         <button class="btn btn-primary rounded-pill px-4" type="submit">Search</button>
                     </form>
 
-                    <!-- Right logout button -->
+                    <!-- Right logout/login button -->
                     <div class="ms-auto">
-                        <form method="post" asp-area="" asp-controller="" asp-action="">
+                        <form method="post" asp-area="" asp-controller="Auth" asp-action="Logout">
                             <button type="submit" class="btn btn-danger rounded-pill px-3">Logout</button>
                         </form>
                     </div>

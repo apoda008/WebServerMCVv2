@@ -1,5 +1,6 @@
 ﻿using System.Text.Json;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebServerMVCv2.Services.Cache;
 using WebServerMVCv2.Services.TCP;
@@ -7,8 +8,8 @@ using WebServerMVCv2.Services.TCP;
 
 namespace WebServerMVCv2.Controllers
 {
- 
 
+    [Authorize]
     public class VideoController : Controller
     {
         // GET: /Video/
@@ -65,7 +66,7 @@ namespace WebServerMVCv2.Controllers
 
             var rangeHeader = Request.GetTypedHeaders().Range;
 
-            //maybe error checking here? 
+            
             if (rangeHeader == null) { 
                 return StatusCode(StatusCodes.Status404NotFound);
             }

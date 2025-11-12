@@ -8,6 +8,7 @@ namespace WebServerMCVv2.Controllers
 {
     public class HomeController : Controller
     {
+        [Authorize]
         public IActionResult Index(HomeModel model)
         {
             model._idTitleDictionary = IdTitleDictionaryCache.GetorLoadCache();
@@ -19,6 +20,8 @@ namespace WebServerMCVv2.Controllers
 
             return View(model);
         }
+
+        //================================
         [Authorize]
         public IActionResult UsersOnly() {
             return View();
@@ -29,6 +32,7 @@ namespace WebServerMCVv2.Controllers
         {
             return View();
         }
+        //================================
 
         [HttpGet]
         public IActionResult More(int skip = 0, int take = 30)
@@ -41,6 +45,16 @@ namespace WebServerMCVv2.Controllers
                 return Content(string.Empty); // no more results
 
             return PartialView("_MovieGridItems", nextBatch);
+        }
+
+        public IActionResult About() 
+        {
+            return View();
+        }
+
+        public ActionResult Contact() 
+        {
+            return View("Contact");
         }
     }
 }
