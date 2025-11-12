@@ -1,0 +1,49 @@
+﻿namespace WebServerMVCv2.wwwroot.css
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #e0e0e0; /* Grey background */
+    font-family: Arial, sans-serif;
+}
+
+.login-container {
+    background-color: #ffffff; /* White box */
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    width: 320px;
+    text-align: center;
+}
+
+    .login-container h2 {
+        margin-bottom: 24px;
+        color: #333;
+    }
+
+    .login-container input {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 16px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 16px;
+    }
+
+    .login-container button {
+        width: 100%;
+        padding: 12px;
+        background-color: #007bff; /* Blue button */
+        border: none;
+        border-radius: 8px;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+        .login-container button:hover {
+            background-color: #0056b3;
+        }

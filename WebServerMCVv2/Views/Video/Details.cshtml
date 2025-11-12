@@ -1,0 +1,46 @@
+﻿@using WebServerMVCv2.Models
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@{
+    ViewData["Title"] = "Video";
+}
+
+@model VideoModel
+
+<div class="container-fluid">
+    <h1>@Model.Title</h1>
+    @*
+    <div>
+        <video width="640" height="360" controls >
+            <source src="" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+	</div>
+    *@
+
+    <div class="container text-lg-start" style="color: white">
+        @Model.Description
+        <p>@Model.VideoSize</p>
+	</div>
+
+    <!-- #region name -->
+
+    <div class="container-fluid">
+        <h1> Test Video</h1>
+        <video controls preload="metadata" class="w-50 h-50" src="@Url.Action("Play", "Video", new { id = Model.Id })"></video>
+    </div>
+    <!-- #endregion -->
+
+    @*<div class="container">
+        <div class="ratio ratio-16x9">
+		    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video" allowfullscreen></iframe>
+
+        </div>
+
+	</div>*@
+
+</div>
+

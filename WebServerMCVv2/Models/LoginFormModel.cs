@@ -1,4 +1,6 @@
-﻿namespace WebServerMCVv2.Models
+﻿//can delete this too
+
+namespace WebServerMCVv2.Models
 {
     public class LoginFormModel
     {

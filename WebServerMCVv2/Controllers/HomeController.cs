@@ -13,7 +13,7 @@ namespace WebServerMCVv2.Controllers
         public IActionResult UsersOnly() {
             return View();
         }
-        [Authorize("Admin")]
+        [Authorize("admin")]
         public IActionResult AdminOnly() 
         {
             return View();

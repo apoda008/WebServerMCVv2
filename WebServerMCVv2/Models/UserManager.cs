@@ -1,5 +1,8 @@
 ﻿using System.Security.Claims;
 
+//pretty sure we can delete this now
+
+
 namespace WebServerMVCv2.Models
 {
     public class UserManager

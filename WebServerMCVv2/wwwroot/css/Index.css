@@ -1,0 +1,18 @@
+﻿namespace WebServerMVCv2.wwwroot.css
+body {
+    background-color: #f0f0f0;
+}
+
+.movie-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    transition: transform .2s ease, box-shadow .2s ease;
+    width: 100%;
+    max-width: 300px;
+}
+
+    .movie-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+    }

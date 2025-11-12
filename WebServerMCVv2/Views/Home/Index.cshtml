@@ -3,13 +3,111 @@
 *@
 @{
     ViewData["Title"] = "Home Page";
+    var totalItemCount = Model._idTitleDictionary.Count;
+    var initialRenderCount = Math.Min(30, totalItemCount);
 }
+
+@section Styles
+{
+    <link rel="stylesheet" href="~/css//Index.css" asp-append-version="true" />
+
+}
+
+<div class="container py-5">
+    <div id="movieGridRow" class="row justify-content-center g-4">
+        @for (int index = 0; index < initialRenderCount; index++)
+        {
+            var kvp = Model._idTitleDictionary.ElementAt(index);
+            <div class="col-12 col-md-6 col-lg-4 d-flex justify-content-center">
+                <div class="movie-card p-3 text-center">
+                    <img src="https://via.placeholder.com/250x140" class="img-fluid rounded mb-3" alt="Thumbnail" />
+                    <h5 class="mb-2 text-dark fw-semibold">@kvp.Value</h5>
+                    <a asp-controller="Video" asp-action="Details" asp-route-id="@kvp.Key" class="btn btn-primary btn-sm">▶ Play Movie</a>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div id="loader" class="text-center py-4" style="display:none;">Loading…</div>
+    <div id="endOfResults" class="text-center text-muted py-4" style="display:none;">No more results</div>
+    <div id="sentinel" class="py-1"></div> <!-- observed for infinite scroll -->
+</div>
+
+
+@section Scripts {
+    <script>
+        (function () {
+            const movieGridRow = document.getElementById('movieGridRow');
+            const loader = document.getElementById('loader');
+            const endOfResults = document.getElementById('endOfResults');
+            const sentinel = document.getElementById('sentinel');
+
+            let loadedCount = @initialRenderCount;
+            const totalItemCount = @totalItemCount;
+            const pageSize = 30;
+            let isLoading = false;
+            let hasMore = loadedCount < totalItemCount;
+
+            async function loadMore() {
+                if (!hasMore || isLoading) return;
+                isLoading = true;
+                loader.style.display = 'block';
+
+                try {
+                    const response = await fetch(`/Home/More?skip=${loadedCount}&take=${pageSize}`, { method: 'GET' });
+                    const html = await response.text();
+
+                    if (html.trim().length === 0) {
+                        hasMore = false;
+                        endOfResults.style.display = 'block';
+                        observer.unobserve(sentinel);
+                        return;
+                    }
+
+                    const temp = document.createElement('div');
+                    temp.innerHTML = html;
+                    const newColumns = temp.querySelectorAll('.col-12, .col-md-6, .col-lg-4');
+                    newColumns.forEach(col => movieGridRow.appendChild(col));
+
+                    loadedCount += pageSize;
+                    if (loadedCount >= totalItemCount) {
+                        hasMore = false;
+                        endOfResults.style.display = 'block';
+                        observer.unobserve(sentinel);
+                    }
+                } catch (e) {
+                    console.error(e);
+                } finally {
+                    loader.style.display = 'none';
+                    isLoading = false;
+                }
+            }
+
+            const observer = new IntersectionObserver(entries => {
+                if (entries.some(entry => entry.isIntersecting)) {
+                    loadMore();
+                }
+            }, { rootMargin: '200px' });
+
+            if (hasMore) observer.observe(sentinel);
+        })();
+    </script>
+}
+
+
+@*
 <a asp-action="UsersOnly" asp-controller="Home">User's only page</a>
 <a asp-action="AdminOnly" asp-controller="Home">Admin Only</a>
 <h1>Cookie Auth in ASP.NET Core MVC</h1>
 <p>
     Currently, the user is @(User.Identity?.Name ?? "Anonymous")
 </p>
+
+
+
+
+
+
 
 @if (User.Identity?.IsAuthenticated ?? false)
 {
@@ -42,3 +140,4 @@ else
     <p>THere are no claims</p>    
 
 }
+*@

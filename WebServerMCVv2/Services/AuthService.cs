@@ -14,7 +14,6 @@ namespace WebServerMVCv2.Services
     {
         public async Task<User?> LoginAsync(UserDto request)
         {
-            Console.WriteLine("Here");
 
             var user = await context.Users.FirstOrDefaultAsync(u => u.Username == request.Username);
             
@@ -36,11 +35,12 @@ namespace WebServerMVCv2.Services
                 Claims = new List<Claim> 
                 { 
                     new Claim(ClaimTypes.Name, request.Username),
-                    new Claim("admin", "true")
+                    new Claim(ClaimTypes.Role, user.Role)
                 }
             };
+            Console.WriteLine(user.Role.ToString());
             //string token = CreateToken(user);
-            Console.WriteLine("Nade ut here");
+           
             return reformat;
         }
 
@@ -59,6 +59,7 @@ namespace WebServerMVCv2.Services
 
             user.Username = request.Username;
             user.PasswordHash = hashedPassword;
+            user.Role = "User";
             user.Claims = new List<Claim>
                 { 
                     //claim == key value pair
@@ -73,28 +74,5 @@ namespace WebServerMVCv2.Services
             return user;
         }
 
-        private string CreateToken(User user)
-        {
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.Name, user.Username),
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Role, user.Role)
-            };
-
-            var key = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(configuration.GetValue<string>("AppSettings: Token")!));
-
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512);
-
-            var tokenDescriptor = new JwtSecurityToken(
-                issuer: configuration.GetValue<string>("AppSettings: Audience"),
-                audience: configuration.GetValue<string>("Appsettings: Audience"),
-                claims: claims,
-                expires: DateTime.UtcNow.AddDays(1),
-                signingCredentials: creds);
-
-            return new JwtSecurityTokenHandler().WriteToken(tokenDescriptor);
-        }
     }
 }
