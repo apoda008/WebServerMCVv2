@@ -1,0 +1,12 @@
+﻿@model IEnumerable<KeyValuePair<int, string>>
+
+@foreach (var item in Model)
+{
+    <div class="col-12 col-md-6 col-lg-4 d-flex justify-content-center">
+        <div class="movie-card p-3 text-center">
+            <img src="https://via.placeholder.com/250x140" class="img-fluid rounded mb-3" alt="Thumbnail" />
+            <h5 class="mb-2 text-dark fw-semibold">@item.Value</h5>
+            <a asp-controller="Video" asp-action="Details" asp-route-id="@item.Key" class="btn btn-primary btn-sm">▶ Play Movie</a>
+        </div>
+    </div>
+}

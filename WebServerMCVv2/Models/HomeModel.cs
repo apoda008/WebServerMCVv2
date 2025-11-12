@@ -2,7 +2,7 @@
 {
     public class HomeModel
     {
-        public Dictionary<int, string> _idTitleDictionary = new Dictionary<int, string>();
+        public Dictionary<int, string> _idTitleDictionary { get; set; } = new Dictionary<int, string>();
         public int rowCalculation = 0;
 
 
@@ -15,6 +15,18 @@
             else
             {
                 rowCalculation = 0;
+            }
+        }
+
+        public int GetCount() 
+        {
+            if (_idTitleDictionary != null && _idTitleDictionary.Count >= 0)
+            {
+                return _idTitleDictionary.Count;
+            }
+            else 
+            { 
+                return 0;   
             }
         }
 
