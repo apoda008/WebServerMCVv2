@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - WebServerMCV</title>
+    <title>@ViewData["Title"] - WebServerMVCv2</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 
@@ -13,6 +13,7 @@
 </head>
 <body class="bg-secondary">
     <header>
+        @*
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-light border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">WebServerMCV</a>
@@ -32,6 +33,44 @@
                 </div>
             </div>
         </nav>
+        *@
+        <nav class="navbar navbar-expand-sm navbar-light bg-light border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <!-- Brand (left) -->
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">WebServerMCV</a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
+                        aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="mainNavbar">
+                    <!-- Left links -->
+                    <ul class="navbar-nav me-3">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="" asp-action="">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="" asp-action="">Contact</a>
+                        </li>
+                    </ul>
+
+                    <!-- Center search bar -->
+                    <form class="d-flex mx-auto w-50" method="get" asp-area="" asp-controller="" asp-action="">
+                        <input class="form-control rounded-pill me-2" type="search" name="q" placeholder="Search…" aria-label="Search">
+                        <button class="btn btn-primary rounded-pill px-4" type="submit">Search</button>
+                    </form>
+
+                    <!-- Right logout button -->
+                    <div class="ms-auto">
+                        <form method="post" asp-area="" asp-controller="" asp-action="">
+                            <button type="submit" class="btn btn-danger rounded-pill px-3">Logout</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
     </header>
     <div class="container">
         <main role="main" class="pb-3">

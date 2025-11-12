@@ -18,5 +18,9 @@ namespace WebServerMVCv2.Models
 
         public Dictionary<int, long> _idVidLengthDictionary = 
             Services.Cache.IdVidLengthDictionaryCache.GetorLoadCache();
+
+        public IEnumerable<KeyValuePair<int, string>> RelatedTitles { get; set; } = null;
+
+        public IEnumerable<KeyValuePair<int, string>> TrendingTitles { get; set; } = null;
     }
 }

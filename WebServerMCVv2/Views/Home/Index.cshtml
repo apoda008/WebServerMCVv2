@@ -26,7 +26,7 @@
                 <div class="movie-card p-3 text-center">
                     <img src="https://via.placeholder.com/250x140" class="img-fluid rounded mb-3" alt="Thumbnail" />
                     <h5 class="mb-2 text-dark fw-semibold">@kvp.Value</h5>
-                    <a asp-controller="Video" asp-action="Details" asp-route-id="@kvp.Key" class="btn btn-primary btn-sm">▶ Play Movie</a>
+                    <a asp-controller="Video" asp-action="Details" asp-route-id="@kvp.Key" class="btn btn-primary rounded-pill">Play Movie</a>
                 </div>
             </div>
         }
@@ -92,50 +92,3 @@
         })();
     </script>
 }
-
-@*
-<a asp-action="UsersOnly" asp-controller="Home">User's only page</a>
-<a asp-action="AdminOnly" asp-controller="Home">Admin Only</a>
-<h1>Cookie Auth in ASP.NET Core MVC</h1>
-<p>
-    Currently, the user is @(User.Identity?.Name ?? "Anonymous")
-</p>
-
-
-
-
-
-
-
-@if (User.Identity?.IsAuthenticated ?? false)
-{
-    <p>They are authenticated</p>
-    <form asp-controller="Auth" asp-action="Logout" method="post">
-
-        <button type="submit">Logout</button>
-    </form>
-
-}
-else
-{
-    <p>THey are not authenticated</p>
-
-}
-
-<h2>Claims</h2>
-@if (User.Claims.Any())
-{
-    <ul>
-        @foreach (var claim in User.Claims)
-        {
-            
-            <li>@claim.ToString()</li>
-        }
-    </ul>
-
-} else
-{
-    <p>THere are no claims</p>    
-
-}
-*@

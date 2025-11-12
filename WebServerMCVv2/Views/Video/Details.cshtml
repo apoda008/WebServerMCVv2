@@ -4,6 +4,118 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 
+@using System.Linq
+@model VideoModel  //@* adjust to your actual model type *@
+
+<div class="container-fluid py-4">
+    <div class="row g-4">
+        <!-- Left: Trending -->
+        <aside class="col-12 col-lg-3 order-2 order-lg-1">
+            <div class="rounded-3 bg-white shadow-sm p-3 sticky-top" style="top: 1rem;">
+                <h5 class="mb-3">Trending</h5>
+
+                <div class="list-group">
+                    @{
+                        var trending = Model?.TrendingTitles ?? Enumerable.Empty<KeyValuePair<int, string>>();
+                        int tCount = 0;
+                        foreach (var item in trending)
+                        {
+                            if (tCount++ >= 10) break;
+                    }
+                    }
+                    @foreach (var item in (Model?.TrendingTitles ?? Enumerable.Empty<KeyValuePair<int, string>>()).Take(10))
+                    {
+                        <a class="list-group-item list-group-item-action d-flex align-items-center gap-3"
+                           asp-area=""
+                           asp-controller=""  @* fill in when backend ready *@
+                           asp-action=""
+                           asp-route-id="@item.Key">
+                            <img src="https://via.placeholder.com/48x72?text=IMG" class="flex-shrink-0 rounded" alt="Thumbnail" width="48" height="72" />
+                            <span class="text-truncate">@item.Value</span>
+                        </a>
+                    }
+                </div>
+            </div>
+        </aside>
+
+        <!-- Center: Title -> Video -> Description -->
+        <main class="col-12 col-lg-6 order-1 order-lg-2">
+            <div class="rounded-3 bg-white shadow-sm p-4 text-center">
+                <!-- Title + Edit -->
+                <div class="d-flex align-items-center justify-content-center mb-3 gap-2 flex-wrap">
+                    <h1 class="h3 mb-0">@Model?.Title</h1>
+                    <a class="btn btn-sm btn-outline-secondary rounded-pill"
+                       asp-area=""
+                       asp-controller=""  @* fill in when backend ready *@
+                       asp-action=""
+                       asp-route-id="@Model?.Id">
+                        Edit Title
+                    </a>
+                </div>
+
+                <!-- Video -->
+                <div class="ratio ratio-16x9 mb-4">
+                    <video controls preload="metadata"
+                           src="@Url.Action("Play", "Video", new { id = Model?.Id })"
+                           class="w-100 h-100">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+
+                <!-- Description + Edit -->
+                <div class="text-start mx-auto" style="max-width: 800px;">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h2 class="h5 mb-0">Description</h2>
+                        <a class="btn btn-sm btn-outline-secondary rounded-pill"
+                           asp-area=""
+                           asp-controller=""  @* fill in when backend ready *@
+                           asp-action=""
+                           asp-route-id="@Model?.Id">
+                            Edit Description
+                        </a>
+                    </div>
+                    <p class="mb-1">@Model?.Description</p>
+                    @* Optional extra meta line
+                    <p class="text-muted small mb-0">Size: @Model?.VideoSize</p>
+                    *@
+                </div>
+            </div>
+        </main>
+
+        <!-- Right: Related Titles -->
+        <aside class="col-12 col-lg-3 order-3 order-lg-3">
+            <div class="rounded-3 bg-white shadow-sm p-3 sticky-top" style="top: 1rem;">
+                <h5 class="mb-3">Related Titles</h5>
+
+                <div class="list-group">
+                    @foreach (var item in (Model?.RelatedTitles ?? Enumerable.Empty<KeyValuePair<int, string>>()).Take(10))
+                    {
+                        <a class="list-group-item list-group-item-action d-flex align-items-center gap-3"
+                           asp-area=""
+                           asp-controller=""  @* fill in when backend ready *@
+                           asp-action=""
+                           asp-route-id="@item.Key">
+                            <img src="https://via.placeholder.com/48x72?text=IMG" class="flex-shrink-0 rounded" alt="Thumbnail" width="48" height="72" />
+                            <span class="text-truncate">@item.Value</span>
+                        </a>
+                    }
+                </div>
+            </div>
+        </aside>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+@* 
 @{
     ViewData["Title"] = "Video";
 }
@@ -12,14 +124,6 @@
 
 <div class="container-fluid">
     <h1>@Model.Title</h1>
-    @*
-    <div>
-        <video width="640" height="360" controls >
-            <source src="" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-	</div>
-    *@
 
     <div class="container text-lg-start" style="color: white">
         @Model.Description
@@ -34,13 +138,6 @@
     </div>
     <!-- #endregion -->
 
-    @*<div class="container">
-        <div class="ratio ratio-16x9">
-		    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video" allowfullscreen></iframe>
-
-        </div>
-
-	</div>*@
 
 </div>
-
+ *@
